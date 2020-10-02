@@ -1,4 +1,6 @@
-
+import pyautogui # pip install pyautogui
+import psutil # pip install psutil
+import pyjokes
 import pyttsx3
 import speech_recognition as sr
 import pyaudio
@@ -38,6 +40,20 @@ def wishMe():
 
 def takeCommand():
     r = sr.Recognizer()
+    
+def cpu():
+    usage = str(psutil.cpu_percent())
+    speak('CPU is at'+ usage)
+    battery = psutil.sensors_battery()
+    speak("Battery is at")
+    speak(battery.percent )
+    
+def jokes():
+   speak(pyjokes.get_joke())
+
+def screenshot():
+    img = pyautogui.screenshot()
+    img.save("C:\\Users\\arbaz\\Desktop\\Open-cv\\jarvis\\ss.png")
    
     with sr.Microphone() as source:
         print("Listening......")
@@ -114,4 +130,15 @@ if __name__ == "__main__":
                 location = weather.lookup_by_location(city)
                 condition = location.condition()
                 speak('The Current weather in %s is %s The tempeture is %.1f degree' % (city, condition.text(), (int(condition.temp())-32)/1.8))
+                
+                
+        elif 'screenshot' in query:
+			screenshot()
+			speak("Done!")
+
+		elif 'cpu'in query:
+			cpu()
+
+		elif 'joke' in query:
+			jokes()
         
