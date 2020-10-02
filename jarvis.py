@@ -10,8 +10,6 @@ import res
 import smtplib
 import requests
 from weather import Weather 
-import pyautogui # pip install pyautogui
-import pyjokes
 
 
 
@@ -24,10 +22,6 @@ engine.setProperty('voice', voices[0].id)
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
-    
-def screenshot():
-    img = pyautogui.screenshot()
-    img.save("C:\\Users\\arbaz\\Desktop\\Open-cv\\jarvis\\ss.png")
 
 def wishMe():
     hour = int(datetime.datetime.now().hour)
@@ -69,10 +63,6 @@ def sendEmail(to,content):
     server.login("vsk1869@gmail.com","love u baby")
     server.sendemail('vsk1869@gmail.com',to,content)
     server.close()
-    
-def jokes():
-    speak(pyjokes.get_joke())
-
 
 if __name__ == "__main__":
     wishMe()
@@ -124,11 +114,4 @@ if __name__ == "__main__":
                 location = weather.lookup_by_location(city)
                 condition = location.condition()
                 speak('The Current weather in %s is %s The tempeture is %.1f degree' % (city, condition.text(), (int(condition.temp())-32)/1.8))
-                
-         elif 'screenshot' in query:
-			screenshot()
-			speak("Done!")
-   
-         elif 'joke' in query:
-			jokes()
         
